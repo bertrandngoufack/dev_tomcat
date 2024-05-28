@@ -2,17 +2,23 @@ pipeline {
     agent any
     environment {
         GIT_REPO_URL = 'https://github.com/bertrandngoufack/dev_tomcat.git'
+        GIT_BRANCH = 'main' // Assurez-vous que c'est la branche correcte
     }
     stages {
         stage('Checkout') {
             steps {
-                git url: "${GIT_REPO_URL}"
+                script {
+                    try {
+                        git branch: "${GIT_BRANCH}", url: "${GIT_REPO_URL}"
+                    } catch (Exception e) {
+                        error "Failed to clone the repository. Please check the URL and branch name. Error: ${e.message}"
+                    }
+                }
             }
         }
         stage('Build and Deploy with Docker Compose') {
             steps {
                 script {
-                    // Build the Docker image and bring up the container using Docker Compose
                     sh 'docker-compose up -d --build'
                 }
             }
@@ -21,7 +27,6 @@ pipeline {
     post {
         always {
             script {
-                // Bring down the Docker Compose services after the build
                 sh 'docker-compose down'
             }
         }
