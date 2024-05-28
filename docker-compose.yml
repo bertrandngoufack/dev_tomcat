@@ -1,8 +1,10 @@
 version: '3'
 services:
   tomcat:
-    image: tomcat:9.0
-    volumes:
-      - ./hello-world.war:/usr/local/tomcat/webapps/hello-world.war
+    image: tomcat:latest
     ports:
-      - "8080:8082"
+      - "8080:8080"
+    volumes:
+      - ./webapps:/usr/local/tomcat/webapps
+    restart: always
+
