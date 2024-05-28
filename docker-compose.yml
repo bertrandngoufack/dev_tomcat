@@ -3,7 +3,7 @@ services:
   tomcat:
     image: tomcat:latest
     ports:
-      - "8081:8080"
+      - "8082:8080"
     volumes:
       - ./SampleWebApp.war:/usr/local/tomcat/webapps/SampleWebApp.war
     restart: always
