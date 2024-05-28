@@ -1,2 +1,2 @@
 FROM tomcat:latest
-COPY helloword.war /usr/local/tomcat/webapps/
+COPY hello-word.war /usr/local/tomcat/webapps/
