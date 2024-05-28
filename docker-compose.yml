@@ -5,6 +5,6 @@ services:
     ports:
       - "8081:8080"
     volumes:
-      - ./helloword.war:/usr/local/tomcat/webapps/helloword.war
+      - ./hello-word.war:/usr/local/tomcat/webapps/hello-word.war
     restart: always
 
