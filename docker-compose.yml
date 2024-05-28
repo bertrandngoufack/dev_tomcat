@@ -5,6 +5,6 @@ services:
     ports:
       - "8081:8080"
     volumes:
-      - ./tomcat.war:/usr/local/tomcat/webapps/tomcat.war
+      - ./helloword.war:/usr/local/tomcat/webapps/tomcat.war
     restart: always
 
