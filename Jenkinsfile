@@ -2,9 +2,22 @@ pipeline {
     agent any
     environment {
         GIT_REPO_URL = 'https://github.com/bertrandngoufack/dev_tomcat.git'
-        GIT_BRANCH = 'main' // Assurez-vous que c'est la branche correcte
+        GIT_BRANCH = 'main'
     }
     stages {
+        stage('Stop Existing Container') {
+            steps {
+                script {
+                    try {
+                        // Arrêter et supprimer le conteneur Tomcat existant s'il est en cours d'exécution
+                        sh 'docker ps -q --filter "ancestor=tomcat:latest" | xargs -r docker stop'
+                        sh 'docker ps -a -q --filter "ancestor=tomcat:latest" | xargs -r docker rm'
+                    } catch (Exception e) {
+                        echo "No running container to stop. Proceeding to the next step."
+                    }
+                }
+            }
+        }
         stage('Checkout') {
             steps {
                 script {
